@@ -1,0 +1,5 @@
+epicsEnvSet("IOC","ioclinux-x86_64")
+epicsEnvSet("TOP","/home/vishnu/epicsDev/ls218")
+epicsEnvSet("ASYN","/opt/epics/support/asyn4-33")
+epicsEnvSet("STREAMS","/opt/epics/support/stream-2-6a/")
+epicsEnvSet("EPICS_BASE","/opt/epics/base-7.0.1.1")

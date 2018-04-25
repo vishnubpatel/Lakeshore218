@@ -1,0 +1,99 @@
+################################################################
+#
+# Lakeshore 336/350 Temperature Controller template file.
+#
+# Macros:
+#   P - Prefix for PV name
+#   PORT - Bus/Port Address (eg. ASYN Port).
+#   ADDR - Address on the bus (optional)
+#   TEMPSCAN - SCAN rate for the temperature/voltage readings
+#   SCAN - SCAN rate for non-temperature/voltage parameters.
+#   ADEL (optional) - Archive deadband for temperatures
+#   MDEL (optional) - Monitor deadband for temperatures
+#
+# Notes: The loop/output dependant PVs are in a seperate template file, included in this one.
+#        Generally, set records forward process the associated read records in order
+#        to update the read record faster than their SCAN rate otherwise would do (but they
+#        are not processed in the same processing chain).
+#
+# Matt Pearson, June 2013
+#
+# June 2014 - modified to support Lakeshore 350. The 350 is almost
+#             identical to the 336 so I just had to modify menu
+#             options. I also added in support for the 3062 option card.
+#
+# June 2014 - factor out input sensor records into lakeshore_input.template
+#             and add support for reading input sensor descriptions. This
+#             is also used in lakeshore_option_3062.template.
+#
+################################################################
+
+record(bo, "$(P):DISABLE") {
+  field(DESC, "Disable set records")
+  field(PINI, "YES")
+  field(VAL, "0")
+  field(OMSL, "supervisory")
+  field(ZNAM, "Set Enabled")
+  field(ONAM, "Set Disabled")
+  field(ZSV, "NO_ALARM")
+  field(OSV, "MAJOR")
+}
+
+record(bo, "$(P):DISABLE_POLL") {
+  field(DESC, "Disable polling")
+  field(PINI, "YES")
+  field(VAL, "0")
+  field(OMSL, "supervisory")
+  field(ZNAM, "Poll Enabled")
+  field(ONAM, "Poll Disabled")
+  field(ZSV, "NO_ALARM")
+  field(OSV, "MAJOR")
+}
+
+################################################################
+# Read records
+################################################################
+
+##
+## Read the ID string from the device.
+##
+record(stringin, "$(P):ID") {
+  field(DTYP, "stream")
+  field(SDIS, "$(P):DISABLE")
+  field(INP, "@kt2000.proto getID $(PORT) $(ADDR)")
+  field(SCAN, "Passive")
+  field(PINI, "YES")
+}
+
+##
+## Read the model number from the device.
+##
+#record(stringin, "$(P):MODEL") {
+#  field(DTYP, "stream")
+#  field(SDIS, "$(P):DISABLE")
+#  field(INP, "@kt2000.proto getMODEL $(PORT) $(ADDR)")
+#  field(SCAN, "I/O Intr")
+#}
+
+##
+## Read the serial number from the device.
+##
+#record(stringin, "$(P):SERIAL") {
+#  field(DTYP, "stream")
+#  field(SDIS, "$(P):DISABLE")
+#  field(INP, "@kt2000.proto getSERIAL $(PORT) $(ADDR)")
+#  field(SCAN, "I/O Intr")
+#}
+
+##
+## Read the firmware from the device.
+##
+#record(stringin, "$(P):FIRMWARE") {
+#  field(DTYP, "stream")
+#  field(SDIS, "$(P):DISABLE")
+#  field(INP, "@kt2000.proto getFIRMWARE $(PORT) $(ADDR)")
+#  field(SCAN, "I/O Intr")
+#}
+
+
+##

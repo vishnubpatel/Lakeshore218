@@ -1,0 +1,6 @@
+# Example substitutions file
+
+file db/ls218.db {
+    pattern { P, PORT, ADDR, TEMPSCAN, SCAN}
+            {"ls218", "agi", 12, 1, 5}
+} 

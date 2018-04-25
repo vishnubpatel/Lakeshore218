@@ -1,0 +1,1 @@
+device(lsi,INST_IO,devls218Version,"ls218 version")

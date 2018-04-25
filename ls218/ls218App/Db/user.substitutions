@@ -1,0 +1,32 @@
+# Example substitutions file
+
+file "db/circle.db" {
+    { user = "vishnu" }
+}
+
+file "db/dbExample1.db" {
+    { user = "vishnu" }
+}
+
+file db/dbExample2.db {
+    pattern { user, no, scan }
+        { "vishnu", 1, "1 second" }
+        { "vishnu", 2, "2 second" }
+        { "vishnu", 3, "5 second" }
+}
+file db/ls218.db {
+    pattern { P, PORT, ADDR, TEMPSCAN, SCAN, INDEX, INPUT}
+            {"ls218", "agi", 12, 1, 5, 1, 1}
+            {"ls218", "agi", 12, 1, 5, 2, 2}
+            {"ls218", "agi", 12, 1, 5, 3, 3}
+            {"ls218", "agi", 12, 1, 5, 4, 4}
+            {"ls218", "agi", 12, 1, 5, 5, 5}
+            {"ls218", "agi", 12, 1, 5, 6, 6}
+            {"ls218", "agi", 12, 1, 5, 7, 7}
+            {"ls218", "agi", 12, 1, 5, 8, 8}
+}
+
+file db/kt2000.db {
+    pattern { P, PORT, ADDR, TEMPSCAN, SCAN}
+            {"kt2000", "agi", 5, 1, 5}
+}
